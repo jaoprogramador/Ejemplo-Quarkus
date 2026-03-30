@@ -2,29 +2,42 @@ package entities;
 
 import java.time.LocalDate;
 
-import io.quarkiverse.groovy.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-public class Receta extends PanacheEntity{
-	/*
-	 * @Id
-	 * 
-	 * @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
-	 */
+public class Receta {
+	
+	 @Id
+	 
+	 @GeneratedValue(strategy = GenerationType.IDENTITY) 
+	 private Long id;
+	 
 
     private String nombre;
     private String ingredientes; // Luego podrías usar una relación @OneToMany
     private int tiempoPreparacion; // En minutos
     private String dificultad;
     private LocalDate fechaPublicacion;
+    @CreationTimestamp
+    private LocalDate fechaCreacion;
+   
+	@UpdateTimestamp
+    private LocalDate fechaActuali;
     
-	/*
-	 * public Long getId() { return id; }
+	
+	public Long getId() { 
+		return id; 
+	}
 	
 	public void setId(Long id) {
 		this.id = id;
-	} */
+	} 
 	public String getNombre() {
 		return nombre;
 	}
@@ -56,16 +69,34 @@ public class Receta extends PanacheEntity{
 		this.fechaPublicacion = fechaPublicacion;
 	}
 
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public LocalDate getFechaActuali() {
+		return fechaActuali;
+	}
+
+	public void setFechaActuali(LocalDate fechaActuali) {
+		this.fechaActuali = fechaActuali;
+	}
+
 	public Receta(
-			/* Long id, */ String nombre, String ingredientes, int tiempoPreparacion, String dificultad,
-			LocalDate fechaPublicacion) {
+			Long id,  String nombre, String ingredientes, int tiempoPreparacion, String dificultad,
+			LocalDate fechaPublicacion,LocalDate fechaCreacion, LocalDate fechaActuali) {
 		super();
-		//this.id = id;
+		this.id = id;
 		this.nombre = nombre;
 		this.ingredientes = ingredientes;
 		this.tiempoPreparacion = tiempoPreparacion;
 		this.dificultad = dificultad;
 		this.fechaPublicacion = fechaPublicacion;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaActuali = fechaActuali;
 	}
 	// 1. EL CONSTRUCTOR VACÍO (OBLIGATORIO)
     public Receta() {

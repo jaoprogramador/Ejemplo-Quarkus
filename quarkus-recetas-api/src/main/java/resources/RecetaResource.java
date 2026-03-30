@@ -1,33 +1,43 @@
 package resources;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import entities.Receta;
-//import repositories.RecetaRepository;
-//simport jakarta.inject.Inject;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import java.util.List;
+import repositories.RecetaRepository;
 
 @Path("/recetas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RecetaResource {
 
-    //@Inject
-    //RecetaRepository recetaRepository;
+    @Inject
+    RecetaRepository recetaRepository;
 
     @GET
     public List<Receta> listarTodas() {
-        return Receta.listAll();
+        return recetaRepository.listAll();
     }
 
     @GET
     @Path("/{id}")
     public Receta obtenerPorId(@PathParam("id") Long id) {
-        Receta receta = Receta.findById(id);
+        var receta = recetaRepository.findById(id);
         if (receta == null) {
-            throw new WebApplicationException("Receta no encontrada", Response.Status.NOT_FOUND);
+            throw new NoSuchElementException("Receta no encontrada con el id "+id);
         }
         return receta;
     }
@@ -35,15 +45,34 @@ public class RecetaResource {
     @POST
     @Transactional
     public Response crear(Receta receta) {
-        Receta.persist(receta);
+    	receta.setId(null);
+    	recetaRepository.persist(receta);
         return Response.status(Response.Status.CREATED).entity(receta).build();
+    }
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    public Response actualizar(@PathParam("id") Long id, Receta receta) {
+    	var recetaActualizar = recetaRepository.findById(id);
+    	if(recetaActualizar != null) {
+    		recetaActualizar.setNombre(receta.getNombre());
+    		recetaActualizar.setIngredientes(receta.getIngredientes());
+    		recetaActualizar.setTiempoPreparacion(receta.getTiempoPreparacion());
+    		recetaActualizar.setDificultad(receta.getDificultad());
+    		recetaActualizar.setFechaPublicacion(receta.getFechaPublicacion());
+    		
+    		return Response.ok(recetaActualizar).build();
+    	}
+    	throw new NoSuchElementException("No har recetas con el id="+id);
+    	
+        
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
     public Response eliminar(@PathParam("id") Long id) {
-        boolean eliminado = Receta.deleteById(id);
+        boolean eliminado = recetaRepository.deleteById(id);
         if (!eliminado) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
