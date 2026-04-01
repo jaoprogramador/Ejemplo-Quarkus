@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Receta {
@@ -29,6 +31,10 @@ public class Receta {
    
 	@UpdateTimestamp
     private LocalDate fechaActuali;
+	
+	@ManyToOne // Muchas recetas -> Una categoría
+    @JoinColumn(name = "categoria_id") // Nombre de la columna en la tabla Receta
+    private Categoria categoria;
     
 	
 	public Long getId() { 

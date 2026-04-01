@@ -1,7 +1,7 @@
 package repositories;
 
 import entities.Receta;
-import io.quarkiverse.groovy.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped

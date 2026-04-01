@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import entities.Receta;
+import io.quarkus.panache.common.Sort;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,9 +30,34 @@ public class RecetaResource {
     RecetaRepository recetaRepository;
 
     @GET
-    public List<Receta> listarTodas() {
-        return recetaRepository.listAll();
+    @Path("/tiempo")
+    public List<Receta> listarTodasMas30min(@QueryParam("tiempoPreparacion") Integer tiempoPreparacion) {
+    	if(tiempoPreparacion == null) {
+            return recetaRepository.listAll(Sort.descending("fechaPublicacion"));
+
+    	}else {
+    		return recetaRepository.list("tiempoPreparacion >= ?1 ", tiempoPreparacion );
+    		//return recetaRepository.list("tiempoPreparacion >= 35" );
+    	}
+        
     }
+    @GET
+    @Path("/nombre")
+    public List<Receta> listarPorNombre(@QueryParam("q") String nombre) {
+    	if(nombre == null) {
+            return recetaRepository.listAll();
+
+    	}else {
+    		String sql ="%" + nombre+"%";
+    		return recetaRepository.list("nombre ILIKE ?1 OR ingredientes ILIKE ?2", sql, sql );
+    		//return recetaRepository.list("tiempoPreparacion >= 35" );
+    	}
+        
+    }
+    
+	/*
+	 * @GET public List<Receta> listarTodas() { return recetaRepository.listAll(); }
+	 */
 
     @GET
     @Path("/{id}")

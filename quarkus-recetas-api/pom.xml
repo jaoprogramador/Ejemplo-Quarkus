@@ -36,14 +36,18 @@
             <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
         <dependency>
+		    <groupId>io.quarkus</groupId>
+		    <artifactId>quarkus-hibernate-orm-panache</artifactId>
+		</dependency>
+        <!--dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
-        </dependency>
+        </dependency
         <dependency>
             <groupId>io.quarkiverse.groovy</groupId>
             <artifactId>quarkus-groovy-hibernate-orm-panache</artifactId>
             <version>3.34.1</version>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-h2</artifactId>
