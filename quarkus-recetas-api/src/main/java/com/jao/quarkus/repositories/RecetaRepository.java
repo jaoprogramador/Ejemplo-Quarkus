@@ -1,6 +1,7 @@
-package repositories;
+package com.jao.quarkus.repositories;
 
-import entities.Receta;
+import com.jao.quarkus.entities.Receta;
+
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

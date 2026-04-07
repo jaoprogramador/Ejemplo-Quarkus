@@ -1,9 +1,9 @@
-package services;
+package com.jao.quarkus.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import dto.Temperatura;
+import com.jao.quarkus.dto.Temperatura;
 
 public interface ITemperaturaService {
 

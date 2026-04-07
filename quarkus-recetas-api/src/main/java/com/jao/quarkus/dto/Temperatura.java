@@ -1,4 +1,4 @@
-package dto;
+package com.jao.quarkus.dto;
 
 public class Temperatura {
 	private String ciudad;

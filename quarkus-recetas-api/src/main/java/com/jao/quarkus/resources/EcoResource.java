@@ -1,4 +1,4 @@
-package resources;
+package com.jao.quarkus.resources;
 
 import java.util.Optional;
 

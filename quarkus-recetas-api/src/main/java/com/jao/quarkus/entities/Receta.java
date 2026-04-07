@@ -1,16 +1,18 @@
-package entities;
+package com.jao.quarkus.entities;
 
 import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
 public class Receta {
@@ -20,7 +22,7 @@ public class Receta {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	 private Long id;
 	 
-
+	@Column(unique = true)
     private String nombre;
     private String ingredientes; // Luego podrías usar una relación @OneToMany
     private int tiempoPreparacion; // En minutos
@@ -35,8 +37,26 @@ public class Receta {
 	@ManyToOne // Muchas recetas -> Una categoría
     @JoinColumn(name = "categoria_id") // Nombre de la columna en la tabla Receta
     private Categoria categoria;
+	@Column(name = "activo", length = 1, nullable = false)
+	public String activo = "S";
     
 	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getActivo() {
+		return activo;
+	}
+
+	public void setActivo(String activo) {
+		this.activo = activo;
+	}
+
 	public Long getId() { 
 		return id; 
 	}

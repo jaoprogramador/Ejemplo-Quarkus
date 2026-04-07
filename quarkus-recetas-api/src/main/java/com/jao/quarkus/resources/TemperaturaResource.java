@@ -1,4 +1,4 @@
-package resources;
+package com.jao.quarkus.resources;
 
 
 
@@ -9,7 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import dto.Temperatura;
+import com.jao.quarkus.dto.Temperatura;
+import com.jao.quarkus.services.TemperaturasService;
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -18,7 +20,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import services.TemperaturasService;
 
 @Path("/temperaturas")
 public class TemperaturaResource {

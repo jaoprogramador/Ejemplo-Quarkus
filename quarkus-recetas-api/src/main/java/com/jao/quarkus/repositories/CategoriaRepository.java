@@ -1,6 +1,7 @@
-package repositories;
+package com.jao.quarkus.repositories;
 
-import entities.Categoria;
+import com.jao.quarkus.entities.Categoria;
+
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Page;

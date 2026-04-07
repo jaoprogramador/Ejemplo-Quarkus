@@ -1,4 +1,4 @@
-package exceptions;
+package com.jao.quarkus.exceptions;
 
 import java.util.NoSuchElementException;
 

@@ -1,4 +1,4 @@
-package dto;
+package com.jao.quarkus.dto;
 
 import java.util.List;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;

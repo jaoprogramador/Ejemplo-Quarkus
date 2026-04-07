@@ -1,4 +1,4 @@
-package entities;
+package com.jao.quarkus.entities;
 
 import java.time.LocalDate;
 
@@ -8,6 +8,10 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,14 +27,17 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
-
+    @JsonProperty("nombreCategoria")
+    @Column(unique = true)
 	private String nombre;
     
     private String origen;
     @CreationTimestamp
+    @JsonIgnore
     private LocalDate fechaCreacion;
    
 	@UpdateTimestamp
+	@JsonIgnore
     private LocalDate fechaActuali;
 
 	
@@ -55,6 +62,10 @@ public class Categoria {
 
 	public String getNombre() {
 		return nombre;
+	}
+	
+	public String getDescLarga() {
+		return nombre + " receta de  " + origen;
 	}
 
 	public void setNombre(String nombre) {

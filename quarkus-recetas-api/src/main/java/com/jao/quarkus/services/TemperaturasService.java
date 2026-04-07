@@ -1,11 +1,12 @@
-package services;
+package com.jao.quarkus.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import dto.Temperatura;
+import com.jao.quarkus.dto.Temperatura;
+
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
