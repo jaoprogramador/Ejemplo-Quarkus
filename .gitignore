@@ -1,0 +1,15 @@
+# --- ANGULAR (Front) ---
+**/node_modules/
+**/dist/
+**/.angular/
+
+# --- QUARKUS / JAVA (API) ---
+**/target/
+**/.quarkus/
+**/db.mv.db
+**/db.trace.db
+**/.idea/
+**/.vscode/
+
+# --- SYSTEM ---
+.DS_Store

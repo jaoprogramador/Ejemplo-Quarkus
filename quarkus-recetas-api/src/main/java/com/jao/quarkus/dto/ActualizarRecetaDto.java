@@ -3,7 +3,7 @@ package com.jao.quarkus.dto;
 public record ActualizarRecetaDto(
 		String nombre,
 	     String ingredientes,
-	     int tiempoPreparacio,
+	     int tiempoPreparacion,
 	     String dificultad,
 	     String activo
 		) {

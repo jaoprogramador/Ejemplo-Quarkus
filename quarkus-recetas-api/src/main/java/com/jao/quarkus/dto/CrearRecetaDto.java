@@ -8,7 +8,7 @@ public record CrearRecetaDto(
 		 String nombre,
 	     String ingredientes,
 	     @Min(10)
-	     int tiempoPreparacio,
+	     int tiempoPreparacion,
 	     String dificultad,
 	     String activo
 		) {

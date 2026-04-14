@@ -24,19 +24,22 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 @Path("/recetas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RecetaResource {
 
-    @Inject
-    RecetaRepository recetaRepository;
+     @Inject
+     RecetaRepository recetaRepository;
     
     
 	 
 	 @Inject
 	 RecetaMapper recetaMapper;
+	 // Creamos la instancia del log
+	 private static final Logger LOG = Logger.getLogger(RecetaResource.class);
 	 
 	 @Inject
 	 public RecetaResource(RecetaRepository recetaRepository,RecetaMapper recetaMapper) {
@@ -77,10 +80,13 @@ public class RecetaResource {
     @GET
     @Path("/tiempo")
     public List<Receta> listarTodasMas30min(@QueryParam("tiempoPreparacion") Integer tiempoPreparacion) {
+    	LOG.info("Petición GET /tiempo recibida. Filtro tiempoPreparacion: " + tiempoPreparacion);
     	if(tiempoPreparacion == null) {
+    		LOG.info("Número de recetas encontradas: 0"+recetaRepository.count());
             return recetaRepository.listAll(Sort.descending("fechaPublicacion"));
 
     	}else {
+    		LOG.info("Número de recetas encontradas: " + recetaRepository.count());
     		return recetaRepository.list("tiempoPreparacion >= ?1 ", tiempoPreparacion );
     		//return recetaRepository.list("tiempoPreparacion >= 35" );
     	}

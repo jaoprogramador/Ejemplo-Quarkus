@@ -16,7 +16,7 @@ public class RecetaMapperImpl implements RecetaMapper{
 		q.setNombre(dto.nombre());
 		q.setIngredientes(dto.dificultad());
 		q.setDificultad(dto.dificultad());
-		q.setTiempoPreparacion(dto.tiempoPreparacio());
+		q.setTiempoPreparacion(dto.tiempoPreparacion());
 		q.setActivo(dto.activo());
 		
 		return q;
@@ -24,10 +24,11 @@ public class RecetaMapperImpl implements RecetaMapper{
 
 	@Override
 	public void actualizar(ActualizarRecetaDto dto, Receta receta) {
+		
 		receta.setNombre(dto.nombre());
 		receta.setIngredientes(dto.ingredientes());
 		receta.setDificultad(dto.dificultad());
-		receta.setTiempoPreparacion(dto.tiempoPreparacio());
+		receta.setTiempoPreparacion(dto.tiempoPreparacion());
 		receta.setActivo(dto.activo());
 		
 	}
