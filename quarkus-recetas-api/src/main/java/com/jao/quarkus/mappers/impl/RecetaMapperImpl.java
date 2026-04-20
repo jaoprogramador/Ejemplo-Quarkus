@@ -14,7 +14,7 @@ public class RecetaMapperImpl implements RecetaMapper{
 	public Receta desdeCrear(CrearRecetaDto dto) {
 		var q = new Receta();
 		q.setNombre(dto.nombre());
-		q.setIngredientes(dto.dificultad());
+		q.setIngredientes(dto.ingredientes());
 		q.setDificultad(dto.dificultad());
 		q.setTiempoPreparacion(dto.tiempoPreparacion());
 		q.setActivo(dto.activo());

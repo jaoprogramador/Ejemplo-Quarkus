@@ -43,61 +43,61 @@ public class CategoriaResource {
 		 this.categoriaMapper=categoriaMapper;
 	 }
 	 
-	 	@POST
-	    @Transactional
-	    public Response create( CrearCategoriaDto categoria) {
-	    	var error =this.categoriaValidador.validaCategoria(categoria);
-	    	if (error.isPresent()) {
-	    		var msg = error.get();
-	    		return Response.status(400).entity(msg).build();
-	    	}
-	    	
-	 		var entity = categoriaMapper.desdeCrear(categoria);
-	    	categoriasRepos.persist(entity);
-	        return Response.created(URI.create("/categorias/" + entity.getId()))
-	                       .entity(categoria)
-	                       .build();
-	    }
-	    
-	    @PUT
-	    @Path("/{id}")
-	    @Transactional
-	    public Categoria update(@PathParam("id") Long id, ActualizarCategoriaDto categoria) {
-	    	
-	        Categoria entity = categoriasRepos
-	                .findByIdOptional(id)
-	                .orElseThrow(() -> new NoSuchElementException("Categoria " + id + " no encontrada"));
-	        categoriaMapper.actualizar(categoria, entity);
-	        categoriasRepos.persist(entity);
-	        // Si añadiste descripción o icono, actualízalos aquí también:
-	        // entity.setDescripcion(categoria.getDescripcion());
-	        
-	        return entity;
-	    }
-	 	@GET
-	    public RespuestaPaginada<Categoria> list(@QueryParam("pagina") @DefaultValue("1") int page,
-	    		@QueryParam("origen") String queryOrigen
-	    		) {
-		 	var query = categoriasRepos.findPage(page);
-		 	if(queryOrigen!=null) {
-		 		var origelLike = "%"+queryOrigen+"%";
-		 		query.filter("origen.like",Parameters.with("origen", origelLike));
-		 	}
-		 	
-		 	
-		 	return new RespuestaPaginada<Categoria>(query);
-		 			
-	    }
+ 	@POST
+    @Transactional
+    public Response create( CrearCategoriaDto categoria) {
+    	var error =this.categoriaValidador.validaCategoria(categoria);
+    	if (error.isPresent()) {
+    		var msg = error.get();
+    		return Response.status(400).entity(msg).build();
+    	}
+    	
+ 		var entity = categoriaMapper.desdeCrear(categoria);
+    	categoriasRepos.persist(entity);
+        return Response.created(URI.create("/categorias/" + entity.getId()))
+                       .entity(categoria)
+                       .build();
+    }
+    
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    public Categoria update(@PathParam("id") Long id, ActualizarCategoriaDto categoria) {
+    	
+        Categoria entity = categoriasRepos
+                .findByIdOptional(id)
+                .orElseThrow(() -> new NoSuchElementException("Categoria " + id + " no encontrada"));
+        categoriaMapper.actualizar(categoria, entity);
+        categoriasRepos.persist(entity);
+        // Si añadiste descripción o icono, actualízalos aquí también:
+        // entity.setDescripcion(categoria.getDescripcion());
+        
+        return entity;
+    }
+ 	@GET
+    public RespuestaPaginada<Categoria> list(@QueryParam("pagina") @DefaultValue("1") int page,
+    		@QueryParam("origen") String queryOrigen
+    		) {
+	 	var query = categoriasRepos.findPage(page);
+	 	if(queryOrigen!=null) {
+	 		var origelLike = "%"+queryOrigen+"%";
+	 		query.filter("origen.like",Parameters.with("origen", origelLike));
+	 	}
+	 	
+	 	
+	 	return new RespuestaPaginada<Categoria>(query);
+	 			
+    }
 
-	   
+   
 
-	    @GET
-	    @Path("/{id}")
-	    public Categoria get(@PathParam("id") Long id) {
-	        return categoriasRepos
-	                .findByIdOptional(id)
-	                .orElseThrow(() -> new NoSuchElementException("Categoria " + id + " no encontrada"));
-	    }
+    @GET
+    @Path("/{id}")
+    public Categoria get(@PathParam("id") Long id) {
+        return categoriasRepos
+                .findByIdOptional(id)
+                .orElseThrow(() -> new NoSuchElementException("Categoria " + id + " no encontrada"));
+    }
 
 	    
 

@@ -1,48 +1,50 @@
-<p-toast /> <div class="card p-5 shadow-2 border-round-xl" style="background: white;">
+<p-toast />
+<div class="card p-5 shadow-2 border-round-xl" style="background: white;">
   <div class="flex align-items-center mb-5">
     <i [class]="isEditMode ? 'pi pi-pencil text-primary text-3xl mr-3' : 'pi pi-plus-circle text-primary text-3xl mr-3'"></i>
     <h2 class="m-0">{{ isEditMode ? 'Editar Receta' : 'Nueva Receta' }}</h2>
   </div>
 
-  <div class="grid p-fluid">
+  <div class="grid p-fluid w-full">
+
     <div class="col-12 md:col-8 mb-4">
       <p-floatlabel>
-        <input type="text" pInputText id="nombre" [(ngModel)]="nuevaReceta.nombre">
+        <input type="text" pInputText id="nombre" [(ngModel)]="nuevaReceta.nombre" class="w-full">
         <label for="nombre">Nombre de la receta</label>
       </p-floatlabel>
     </div>
 
     <div class="col-12 md:col-4 mb-4">
       <p-floatlabel>
-        <p-inputNumber id="tiempo" [(ngModel)]="nuevaReceta.tiempoPreparacion" suffix=" min"></p-inputNumber>
+        <p-inputNumber id="tiempo" [(ngModel)]="nuevaReceta.tiempoPreparacion" suffix=" min" class="w-full"></p-inputNumber>
         <label for="tiempo">Tiempo de preparación</label>
       </p-floatlabel>
     </div>
 
     <div class="col-12 md:col-6 mb-4">
       <p-floatlabel>
-        <p-select [options]="dificultades" [(ngModel)]="nuevaReceta.dificultad" optionLabel="label" optionValue="value" id="dificultad"></p-select>
+        <p-select [options]="dificultades" [(ngModel)]="nuevaReceta.dificultad" optionLabel="label" optionValue="value" id="dificultad" class="w-full"></p-select>
         <label for="dificultad">Dificultad</label>
       </p-floatlabel>
     </div>
 
     <div class="col-12 md:col-6 mb-4">
       <p-floatlabel>
-        <p-select [options]="categorias" [(ngModel)]="nuevaReceta.categoria" optionLabel="label" optionValue="value" id="categoria"></p-select>
+        <p-select [options]="categorias" [(ngModel)]="nuevaReceta.categoria" optionLabel="label" optionValue="value" id="categoria" class="w-full"></p-select>
         <label for="categoria">Categoría</label>
       </p-floatlabel>
     </div>
 
     <div class="col-12 mb-4">
       <p-floatlabel>
-        <textarea pTextarea id="ingredientes" [(ngModel)]="nuevaReceta.ingredientes" rows="4"></textarea>
+        <textarea pInputTextarea id="ingredientes" [(ngModel)]="nuevaReceta.ingredientes" rows="4" class="w-full" style="resize: none;"></textarea>
         <label for="ingredientes">Ingredientes (separados por comas)</label>
       </p-floatlabel>
     </div>
 
     <div class="col-12 flex justify-content-end gap-3 mt-2">
-      <p-button label="Cancelar" icon="pi pi-times" severity="secondary" [outlined]="true" routerLink="/recetas" class="p-button-lg"></p-button>
-      <p-button label="Guardar Receta" icon="pi pi-save" severity="success" (onClick)="registrar()" class="p-button-lg"></p-button>
+      <p-button label="Cancelar" icon="pi pi-times" severity="secondary" [outlined]="true" routerLink="/recetas"></p-button>
+      <p-button label="Guardar Receta" icon="pi pi-save" severity="success" (onClick)="registrar()"></p-button>
     </div>
   </div>
 </div>

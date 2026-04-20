@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import com.jao.quarkus.dto.ActualizarRecetaDto;
 import com.jao.quarkus.dto.CrearRecetaDto;
+import com.jao.quarkus.dto.RespuestaPaginada;
 import com.jao.quarkus.entities.Receta;
 import com.jao.quarkus.mappers.RecetaMapper;
 import com.jao.quarkus.repositories.RecetaRepository;
@@ -15,6 +16,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -50,9 +52,11 @@ public class RecetaResource {
  	@POST
     @Transactional
     public Response crear(@Valid CrearRecetaDto receta) {
+ 		LOG.info("RecetaResource::crear ");
  		var entity = recetaMapper.desdeCrear(receta);
     	//receta.setId(null);
     	recetaRepository.persist(entity);
+    	LOG.info("RecetaResource::crear "+Response.Status.CREATED);
         return Response.status(Response.Status.CREATED).entity(receta).build();
     }
     @PUT
@@ -61,13 +65,7 @@ public class RecetaResource {
     public Response actualizar(@PathParam("id") Long id, ActualizarRecetaDto receta) {
     	var recetaActualizar = recetaRepository.findById(id);
     	if(recetaActualizar != null) {
-			/*
-			 * recetaActualizar.setNombre(receta.getNombre());
-			 * recetaActualizar.setIngredientes(receta.getIngredientes());
-			 * recetaActualizar.setTiempoPreparacion(receta.getTiempoPreparacion());
-			 * recetaActualizar.setDificultad(receta.getDificultad());
-			 * recetaActualizar.setFechaPublicacion(receta.getFechaPublicacion());
-			 */
+			
     		recetaMapper.actualizar(receta, recetaActualizar);
     		
     		return Response.ok(recetaActualizar).build();
@@ -76,22 +74,41 @@ public class RecetaResource {
     	
         
     }
-	    
     @GET
-    @Path("/tiempo")
-    public List<Receta> listarTodasMas30min(@QueryParam("tiempoPreparacion") Integer tiempoPreparacion) {
-    	LOG.info("Petición GET /tiempo recibida. Filtro tiempoPreparacion: " + tiempoPreparacion);
-    	if(tiempoPreparacion == null) {
-    		LOG.info("Número de recetas encontradas: 0"+recetaRepository.count());
-            return recetaRepository.listAll(Sort.descending("fechaPublicacion"));
-
-    	}else {
-    		LOG.info("Número de recetas encontradas: " + recetaRepository.count());
-    		return recetaRepository.list("tiempoPreparacion >= ?1 ", tiempoPreparacion );
-    		//return recetaRepository.list("tiempoPreparacion >= 35" );
-    	}
+    public RespuestaPaginada<Receta> listar(
+            @QueryParam("pagina") @DefaultValue("1") int page,
+            @QueryParam("nombre") String nombre) {
+    	LOG.info("RecetaResource::listar ");
+        // Asumiendo que tu RecetaRepository tiene un método findPage similar al de categorías
+        var query = recetaRepository.findAll().page(page - 1, 50); // Ejemplo de paginación Panache
         
+        if (nombre != null && !nombre.isEmpty()) {
+            String filter = "%" + nombre + "%";
+            // Ajusta según cómo tengas implementados los filtros en tu repositorio
+            return new RespuestaPaginada<>(recetaRepository.find("nombre ILIKE ?1", filter).page(page - 1, 10));
+        }
+        LOG.info("RecetaResource::listar "+recetaRepository.count());
+        return new RespuestaPaginada<>(query);
     }
+	    
+	/*
+	 * @GET
+	 * 
+	 * @Path("/tiempo") public List<Receta>
+	 * listarTodasMas30min(@QueryParam("tiempoPreparacion") Integer
+	 * tiempoPreparacion) {
+	 * LOG.info("Petición GET /tiempo recibida. Filtro tiempoPreparacion: " +
+	 * tiempoPreparacion); if(tiempoPreparacion == null) {
+	 * LOG.info("Número de recetas encontradas: 0"+recetaRepository.count()); return
+	 * recetaRepository.listAll(Sort.descending("fechaPublicacion"));
+	 * 
+	 * }else { LOG.info("Número de recetas encontradas: " +
+	 * recetaRepository.count()); return
+	 * recetaRepository.list("tiempoPreparacion >= ?1 ", tiempoPreparacion );
+	 * //return recetaRepository.list("tiempoPreparacion >= 35" ); }
+	 * 
+	 * }
+	 */
     @GET
     @Path("/nombre")
     public List<Receta> listarPorNombre(@QueryParam("q") String nombre) {
@@ -105,10 +122,6 @@ public class RecetaResource {
     	}
         
     }
-    
-	/*
-	 * @GET public List<Receta> listarTodas() { return recetaRepository.listAll(); }
-	 */
 
     @GET
     @Path("/{id}")

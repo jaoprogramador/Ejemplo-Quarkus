@@ -19,7 +19,7 @@ import { Receta } from '../../../../models/receta.model';
   providers: [MessageService], // Proveedor local para el toast
   imports: [
     CommonModule, FormsModule, RouterLink,
-    Button, InputText, InputNumber, Textarea, Select, Toast, FloatLabel
+    Button, InputText, InputNumber, Select, Toast, FloatLabel
   ],
   templateUrl: './receta-form.component.html'
 })
@@ -66,6 +66,7 @@ export class RecetaFormComponent implements OnInit{
     activo: 'S'
   };
   registrar(): void {
+
     const servicio = this.isEditMode
       ? this.recetaService.update(this.nuevaReceta)
       : this.recetaService.save(this.nuevaReceta);

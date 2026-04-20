@@ -1,33 +1,71 @@
-<p-table [value]="recetas()" [paginator]="true" [rows]="5" class="p-datatable-striped">
+<div class="flex justify-content-end mb-4 mt-2">
+  <div class="p-inputgroup" style="max-width: 320px;">
+    <span class="p-inputgroup-addon">
+      <i class="pi pi-search"></i>
+    </span>
+    <input
+      pInputText
+      type="text"
+      placeholder="Buscar por ingrediente..."
+      (input)="onSearch($event)"
+      class="p-inputtext-sm"
+    />
+  </div>
+</div>
+
+<p-table
+  [value]="recetasFiltradas()"
+  [paginator]="true"
+  [rows]="5"
+  class="p-datatable-striped shadow-1 border-round-sm overflow-hidden"
+  [responsiveLayout]="'stack'"
+  [breakpoint]="'960px'"
+>
   <ng-template pTemplate="header">
     <tr>
-      <th>ID</th>
-      <th>Nombre</th>
+      <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+      <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
       <th>Tiempo</th>
       <th>Dificultad</th>
-      <th style="width: 10rem">Acciones</th>
+      <th style="width: 10rem text-align: center">Acciones</th>
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-receta>
     <tr>
-      <td>{{ receta.id }}</td>
-      <td>{{ receta.nombre }}</td>
-      <td>{{ receta.tiempoPreparacion }} min</td>
-      <td>{{ receta.dificultad }}</td>
+      <td><span class="p-column-title"></span>{{ receta.id }}</td>
+      <td><span class="p-column-title"></span><strong>{{ receta.nombre }}</strong></td>
+      <td><span class="p-column-title"></span>{{ receta.tiempoPreparacion }} min</td>
       <td>
+        <span class="p-column-title"></span>
+        {{ receta.dificultad }}
+      </td>
+      <td style="text-align: center">
         <p-button
           icon="pi pi-pencil"
           [rounded]="true"
           severity="success"
           [text]="true"
-          [routerLink]="['/recetas/editar', receta.id]" />
+          [routerLink]="['/recetas/editar', receta.id]"
+          pTooltip="Editar receta"
+        />
 
         <p-button
           icon="pi pi-trash"
           [rounded]="true"
           severity="danger"
           [text]="true"
-          (onClick)="eliminar(receta.id)" />
+          (onClick)="eliminar(receta.id)"
+          pTooltip="Eliminar receta"
+        />
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="5" class="text-center p-4">
+        No se encontraron recetas con ese ingrediente.
       </td>
     </tr>
   </ng-template>

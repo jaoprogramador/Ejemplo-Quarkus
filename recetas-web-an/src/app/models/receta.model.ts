@@ -8,5 +8,12 @@ export interface Receta {
   fechaCreacion?: string;
   fechaActuali?: string;
   activo: string;
-  categoria?: any; // Luego lo podemos tipar con otro modelo
+  categoria?: any;
+}
+
+// Nueva interfaz para las respuestas del servidor
+export interface RespuestaPaginada<T> {
+  pagina: number;
+  totalPaginas: number;
+  datos: T[]; // <-- Verifica que se llame 'datos', tal como sale en tu consola
 }
