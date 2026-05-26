@@ -1,0 +1,14 @@
+Tinto En carta
+Rosado Sin existencias
+Blanco Sin existencias
+Espumoso En carta
+Zumo En carta
+Agua En carta
+CocaCola Sin existencias
+Tiramisú Sin existencias
+Tarta Queso En carta
+Torrijas En carta
+Arroz con leche En carta
+Culan Pedido
+Helado En carta
+Fruta En carta
