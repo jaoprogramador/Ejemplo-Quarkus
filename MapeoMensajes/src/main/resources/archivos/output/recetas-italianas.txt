@@ -1,0 +1,29 @@
+{
+  "id" : 1,
+  "nombre" : "Espaguetis a la Carbonara",
+  "categoria" : "Pastas",
+  "origen" : "Italia",
+  "tiempo_preparacion_min" : 20,
+  "porciones" : 4,
+  "ingredientes" : [ {
+    "nombre" : "Espaguetis",
+    "cantidad" : "400g"
+  }, {
+    "nombre" : "Guanciale o Panceta",
+    "cantidad" : "150g"
+  }, {
+    "nombre" : "Yemas de huevo",
+    "cantidad" : "4 unidades"
+  }, {
+    "nombre" : "Queso Pecorino Romano o Parmesano",
+    "cantidad" : "50g"
+  }, {
+    "nombre" : "Pimienta negra molida",
+    "cantidad" : "al gusto"
+  }, {
+    "nombre" : "Sal",
+    "cantidad" : "al gusto"
+  } ],
+  "instrucciones" : [ "Hervir los espaguetis en abundante agua con sal siguiendo las instrucciones del paquete.", "Mientras tanto, cortar el guanciale en tiras y dorarlo en una sartén grande sin aceite extra hasta que esté crujiente. Retirar del fuego.", "En un bol, batir las yemas de huevo con el queso rallado y una generosa cantidad de pimienta negra hasta obtener una pasta cremosa.", "Escurrir la pasta al dente, reservando un cazo del agua de la cocción.", "Añadir la pasta a la sartén con el guanciale caliente y mezclar bien.", "Verter la mezcla de yemas y queso sobre la pasta caliente fuera del fuego (es vital que esté fuera del fuego para que el huevo no se cuaje).", "Remover enérgicamente añadiendo un poco de agua de la cocción reservada para crear una salsa emulsionada y cremosa.", "Servir inmediatamente con más queso y pimienta por encima." ],
+  "nuevoIngrediente" : "Nata"
+}
